@@ -1,32 +1,13 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import { 
-  StyleSheet, 
-  Text, 
-  View,
-  Button
-} from 'react-native';
+import 'react-native-gesture-handler'
+import React, { FC } from 'react'
+import { NavigationContainer } from '@react-navigation/native'
 
-export default function App() {
+import MainStackNavigation from './srcs/stacks/MainStackNavigation'
 
-  const [counter, setCounter] = useState(0)
-
-  return (
-    <View style={styles.container}>
-      <Text>Mario Castellano</Text>
-      <Text>{counter}</Text>
-      <Button
-        title="Increase"
-        onPress={() => setCounter(prevCounter => prevCounter + 1)} />
-    </View>
-  );
+const App: FC = () => {
+  return <NavigationContainer>
+    <MainStackNavigation />
+  </NavigationContainer>
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App
