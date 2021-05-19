@@ -18,9 +18,6 @@ export default function App() {
       <Button
         title="Increase"
         onPress={() => setCounter(prevCounter => prevCounter + 1)} />
-      <Button
-        title="Decrease"
-        onPress={() => setCounter(prevCounter => prevCounter - 1)} />
     </View>
   );
 }
