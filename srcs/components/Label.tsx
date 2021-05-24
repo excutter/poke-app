@@ -10,16 +10,19 @@ import { handleMargin, handlePadding } from '../styles/functionStyles'
 interface LabelProps {
     style?: StyleSheetProperties,
     fontSize?: number,
+    bold?: boolean,
+    center?: boolean,
     color?: string,
     autoWidth?: boolean
     margin?: [number],
     padding?: [number],
-    children: JSX.Element
 }
 
 const Label: FC<LabelProps> = ({
     style,
     fontSize,
+    bold,
+    center,
     color,
     autoWidth,
     margin,
@@ -27,15 +30,18 @@ const Label: FC<LabelProps> = ({
     children
 }) => {
 
-    const blockStyles = [
+    const blockStyles: any = [
         styles.label,
-        autoWidth && styles.autoWidth,
+        // autoWidth && styles.autoWidth,
         margin && { ...handleMargin(margin) },
         padding && { ...handlePadding(padding) },
-        fontSize && { fontSize }
+        fontSize && { fontSize },
+        bold && styles.bold,
+        center && styles.center,
+        style
     ]
 
-    return <Text style={styles.label}>
+    return <Text style={blockStyles}>
         {children}
     </Text>
 }
@@ -46,10 +52,10 @@ const styles = StyleSheet.create({
     label: {
         width: '100%',
         paddingVertical: 5,
-        color: colors.black,
+        color: colors.black
     },
-    white: {
-        color: colors.white
-    },
-    autoWidth: { width: 'auto' }
+    white: {  color: colors.white },
+    bold: { fontWeight: 'bold' },
+    autoWidth: { width: 'auto' },
+    center: { textAlign: 'center' }
 })

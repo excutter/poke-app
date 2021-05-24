@@ -1,18 +1,29 @@
 
 const colors =  {
-    blue: '#2B3567',
-    purple: '#586296',
-    yellow: '#E9CA5E',
-    green: '#24BF3B',
-    red: '#FF443A',
     gray: '#AEAEAE',
     white: '#FFFFFF',
     black: '#000000',
-    light_yellow: '#FFE999',
     light_gray: '#F4F4F4',
-    background: '#F2F1F7',
-    palid_blue: '#5B6286',
-    light_purple: '#C6CBE2'
+    pokemon: {
+        normal: '#A8A77A',
+        fire: '#EE8130',
+        water: '#6390F0',
+        electric: '#F7D02C',
+        grass: '#7AC74C',
+        ice: '#96D9D6',
+        fighting: '#C22E28',
+        poison: '#A33EA1',
+        ground: '#E2BF65',
+        flying: '#A98FF3',
+        psychic: '#F95587',
+        bug: '#A6B91A',
+        rock: '#B6A136',
+        ghost: '#735797',
+        dragon: '#6F35FC',
+        dark: '#705746',
+        steel: '#B7B7CE',
+        fairy: '#D685AD',
+    }
 }
 
 export default colors

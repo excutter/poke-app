@@ -1,16 +1,29 @@
-import React, { useState, useCallback } from 'react'
+import React, { 
+    useState, 
+    useCallback, 
+    FC 
+} from 'react'
 import {
     View,
     FlatList,
     ActivityIndicator
 } from 'react-native'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { MainStackParamList } from '../../stacks/MainStackNavigation'
+
 import usePokemon from '../../hooks/usePokemon'
 
 import PokemonCell from './PokemonCell'
 
-import styles from './styles/homescreen.styles'
+import styles from './styles/pokedexscreen.styles'
 
-const HomeScreen = () => {
+type PokedexScreenNavigationProp = StackNavigationProp<MainStackParamList, 'Pokedex'>
+
+type PokedexScreenProps = {
+    navigation: PokedexScreenNavigationProp
+}
+
+const PokedexScreen: FC<PokedexScreenProps> = ({ navigation }) => {
 
     const [query, setQuery] = useState('')
     const [pageNumber, setPageNumber] = useState(() => 0)
@@ -25,6 +38,8 @@ const HomeScreen = () => {
         hasMore && setPageNumber(prevPage => prevPage + 1)
     }, [hasMore])
 
+    const onPokemonPress = (id: string, name: string) => navigation.navigate('PokemonDetail', { pokemon: { id, name } })
+
     return <FlatList
         style={styles.flatList}
         contentContainerStyle={styles.flatListContainer}
@@ -33,8 +48,11 @@ const HomeScreen = () => {
         maxToRenderPerBatch={1}
         data={pokemon}
         keyExtractor={item => item.name}
-        renderItem={({ item, index }) => <PokemonCell index={index} pokemon={item} />}
-        // onEndReachedThreshold={0.3}
+        renderItem={({ item, index }) => (
+        <PokemonCell 
+            index={index} 
+            pokemon={item}
+            onPress={onPokemonPress} />)}
         onEndReached={loadMorePokemon}
         ListFooterComponent={
             loading ? <View style={{ width: '100%', height: 50 }}>
@@ -44,4 +62,4 @@ const HomeScreen = () => {
         } />
 }
 
-export default HomeScreen
+export default PokedexScreen

@@ -1,31 +1,43 @@
-import React, { FC } from 'react'
-import { View, Text } from 'react-native'
+import React, { useEffect, FC } from 'react'
+import { usePokemon } from '../../hooks'
+
+import { Card, Label } from '../../components'
 
 import styles from './styles/pokemoncell.styles'
+import { GestureResponderEvent } from 'react-native'
 
-interface PokemonDetailsProps {
+type PokemonDetailsProps = {
     name: string,
     url: string
 }
 
-interface PokemonProps {
+type PokemonProps = {
     index: number,
+    onPress: (id: string, name: string) => void,
     pokemon: PokemonDetailsProps
 }
 
 const PokemonCell: FC<PokemonProps> = ({
     index,
+    onPress,
     pokemon
 }) => {
     
-    const blockStyles = [
+    const blockStyles: any = [
         styles.pokemonCell,
-        index % 2 != 0 ? styles.pokemonCellPair : styles.pokemonCellOdd,
-    ]
+        index % 2 !== 0 ? styles.pokemonCellPair : styles.pokemonCellOdd,
+    ]    
 
-    return <View style={blockStyles}>
-        <Text>{pokemon.name}</Text>
-    </View>
+    return <Card
+        style={blockStyles} 
+        lightGray
+        onPress={() => onPress((index + 1).toString(), pokemon.name)}>
+        <Label
+            center 
+            bold>
+            {pokemon.name}
+        </Label>
+    </Card>
 }
 
 export default PokemonCell

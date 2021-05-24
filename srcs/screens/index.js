@@ -1,5 +1,7 @@
-import HomeScreen from './Home/HomeScreen'
+import PokedexScreen from './Home/PokedexScreen'
+import PokemonDetailScreen from './PokemonDetail/PokemonDetailScreen'
 
 export {
-    HomeScreen
+    PokedexScreen,
+    PokemonDetailScreen
 }

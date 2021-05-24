@@ -1,12 +1,12 @@
 import { StyleSheet } from 'react-native'
-import { colors } from './../../../styles'
+import { colors } from '../../../styles'
 
 export default StyleSheet.create({
-    flatList: {
+    view: {
         flex: 1,
         backgroundColor: colors.white
     },
-    flatListContainer: {
-        padding: 16
+    loading: {
+        flex: 1,
     }
 })

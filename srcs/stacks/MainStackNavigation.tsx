@@ -1,15 +1,26 @@
 import React, { FC } from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 
-import { HomeScreen } from '../screens'
+import { 
+    PokedexScreen,
+    PokemonDetailScreen 
+} from '../screens'
 
-const StackNavigator = createStackNavigator()
+export type MainStackParamList = {
+    Pokedex: undefined;
+    PokemonDetail: { pokemon: { id: string, name: string } }
+}
+const StackNavigator = createStackNavigator<MainStackParamList>()
 
-const MainStackNavigation: FC = (props) => {
-    return <StackNavigator.Navigator initialRouteName="Pokemon">
+const MainStackNavigation: FC = () => {
+    return <StackNavigator.Navigator initialRouteName="Pokedex">
         <StackNavigator.Screen
-            name="Pokemon"
-            component={HomeScreen} />
+            name="Pokedex"
+            component={PokedexScreen} />
+        <StackNavigator.Screen
+            name="PokemonDetail"
+            component={PokemonDetailScreen}
+            options={({ route }) => ({ title: route.params.pokemon.name })} />
     </StackNavigator.Navigator>
 }
 
