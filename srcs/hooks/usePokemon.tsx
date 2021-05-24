@@ -1,8 +1,7 @@
-import { 
-    FC, 
+import {
     useEffect,
     useState,
-    useMemo 
+    useMemo
 } from 'react'
 
 interface UsePokemonProps {
@@ -10,11 +9,23 @@ interface UsePokemonProps {
     pageNumber: number
 }
 
+interface PokemonResponse {
+    url: string,
+    name: string
+}
+
 interface ResponseProps {
-   count: number,
-   next: string,
-   previous: boolean,
-   results: [] 
+    count: number,
+    next: string,
+    previous: boolean,
+    results: PokemonResponse[]
+}
+
+interface UsePokemonStateProps {
+    loading: boolean,
+    error: boolean,
+    hasMore: boolean,
+    pokemon: PokemonResponse[]
 }
 
 const LIMIT = 20
@@ -22,36 +33,35 @@ const LIMIT = 20
 const usePokemon = ({
     query,
     pageNumber
-}: UsePokemonProps) => {
+}: UsePokemonProps): UsePokemonStateProps => {
 
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
-    const [pokemon, setPokemon] = useState([])
+    const [pokemon, setPokemon] = useState<PokemonResponse[]>([])
     const [hasMore, setHasMore] = useState(false)
 
-    const body = useMemo(() => {
-        let body = JSON.stringify({
-            limit: LIMIT,
-            offset: LIMIT * pageNumber
-        })
-        if (query) body = JSON.stringify({ pokemon: query })
-        return query
+    const params = useMemo(() => {
+        let params = `?limit=${LIMIT}&offset=${LIMIT * pageNumber}`
+        if (query) params = `/${query}`
+        return params
     }, [query, pageNumber])
+
+    useEffect(() => {
+        setPokemon([])
+    }, [query])
 
     useEffect(() => {
         setLoading(true)
         setError(false)
-        fetch(
-            'https://pokeapi.co/api/v2/pokemon',
-            { method: 'GET', body }
-        )
-        .then(res => res.json())
-        .then((data: ResponseProps) => {
-            setPokemon(prevPokemon => [...prevPokemon, ...data.results])
-            setHasMore(data.next !== null)
-            setLoading(false)
-        })
-        .catch(error => setError(true))
+        fetch(`https://pokeapi.co/api/v2/pokemon${params}`)
+            .then(res => res.json())
+            .then((data: ResponseProps) => {
+                console.log(`https://pokeapi.co/api/v2/pokemon${params}`)
+                setPokemon(prevPokemon => [...new Set([...prevPokemon, ...data.results])])
+                setHasMore(data.next !== null)
+                setLoading(false)
+            })
+            .catch(error => setError(true))
     }, [query, pageNumber])
 
     return { loading, error, hasMore, pokemon }
