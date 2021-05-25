@@ -1,4 +1,4 @@
-import colors from './colors'
+import colors, { hexToRgbA } from './colors'
 import functionStyles from './functionStyles'
 
-export { colors, functionStyles }
+export { colors, functionStyles, hexToRgbA }

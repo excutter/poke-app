@@ -3,38 +3,26 @@ import {
     useState
 } from 'react'
 
+import { PokemonProp, PokemonCellProp } from '../types/PokemonProps'
+
 type UsePokemonProps = {
     query?: string,
     pageNumber?: number
-}
-
-type PokemonResponse = {
-    url: string,
-    name: string
-}
-
-type PokemonDetailResponse = {
-    id: number,
-    name: string,
-    weight: number,
-    height: number,
-    types: { slot: number, type: { name: string, url: string }}[],
-    sprites: { front_default: string, front_shiny: string, back_default: string, back_shiny: string }
 }
 
 type ResponseProps = {
     count: number,
     next: string,
     previous: boolean,
-    results: PokemonResponse[]
+    results: PokemonCellProp[]
 }
 
 type UsePokemonStateProps = {
     loading: boolean,
     error: boolean,
     hasMore: boolean,
-    pokemon: PokemonResponse[],
-    pokemonDetail: PokemonDetailResponse | null
+    pokemon: PokemonCellProp[],
+    pokemonDetail: PokemonProp | null
 }
 
 const LIMIT = 20
@@ -46,8 +34,8 @@ const usePokemon = ({
 
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
-    const [pokemon, setPokemon] = useState<PokemonResponse[]>([])
-    const [pokemonDetail, setPokemonDetail] = useState<PokemonDetailResponse | null>(null) 
+    const [pokemon, setPokemon] = useState<PokemonCellProp[]>([])
+    const [pokemonDetail, setPokemonDetail] = useState<PokemonProp | null>(null) 
     const [hasMore, setHasMore] = useState(false)
 
     useEffect(() => {
@@ -72,7 +60,7 @@ const usePokemon = ({
         setError(false)
         if (query)
             fetchData(`https://pokeapi.co/api/v2/pokemon/${query}`)
-            .then((pokemonDetail: PokemonDetailResponse) => {
+            .then((pokemonDetail: PokemonProp) => {
                 setPokemonDetail(pokemonDetail)
                 setLoading(false)
             })

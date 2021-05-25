@@ -1,18 +1,19 @@
 import React, { FC } from 'react'
 import { 
     Text,
-    StyleSheet, 
-    StyleSheetProperties
+    StyleSheet,
+    StyleProp,
+    ViewStyle
 } from 'react-native'
 import { colors } from '../styles'
 import { handleMargin, handlePadding } from '../styles/functionStyles'
 
 interface LabelProps {
-    style?: StyleSheetProperties,
+    style?: StyleProp<ViewStyle>,
     fontSize?: number,
     bold?: boolean,
     center?: boolean,
-    color?: string,
+    white?: boolean,
     autoWidth?: boolean
     margin?: [number],
     padding?: [number],
@@ -23,7 +24,7 @@ const Label: FC<LabelProps> = ({
     fontSize,
     bold,
     center,
-    color,
+    white,
     autoWidth,
     margin,
     padding,
@@ -38,6 +39,7 @@ const Label: FC<LabelProps> = ({
         fontSize && { fontSize },
         bold && styles.bold,
         center && styles.center,
+        white && styles.white,
         style
     ]
 
