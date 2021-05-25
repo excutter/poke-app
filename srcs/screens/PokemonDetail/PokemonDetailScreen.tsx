@@ -1,15 +1,19 @@
 import React, { 
     FC,
+    useState,
     useMemo
 } from 'react'
 import {
     View,
     ScrollView,
     ActivityIndicator,
-    VirtualizedList
+    VirtualizedList,
+    NativeSyntheticEvent,
+    NativeSegmentedControlIOSChangeEvent
 } from 'react-native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { RouteProp } from '@react-navigation/native'
+import SegmentedControl from '@react-native-segmented-control/segmented-control'
 
 import SpriteCell from './SpriteCell'
 import { Card, PokemonTypes } from '../../components'
@@ -30,11 +34,22 @@ type PokemonDetailScreenProps = {
     route: PokemonDetailScreenRouteProp
 }
 
+type SegmentedOptionProp = {
+    label: string,
+    value: number
+}
+
+const ABOUT: SegmentedOptionProp = { label: 'About', value: 0 },
+    BASE_STATS: SegmentedOptionProp = { label: 'Base Stats', value: 1 },
+    EVOLUTION: SegmentedOptionProp = { label: 'Evolution', value: 2 },
+    MOVES: SegmentedOptionProp = { label: 'Moves', value: 3 }
+
 const PokemonDetail: FC<PokemonDetailScreenProps> = ({
     navigation,
     route
 }) => {
 
+    const [segmentedIndex, setSegmentedIndex] = useState(0)
     const {
         pokemonDetail,
         loading,
@@ -53,15 +68,16 @@ const PokemonDetail: FC<PokemonDetailScreenProps> = ({
         return pokemon
     }, [pokemonDetail])
 
+    const onSegmentedChange = (event: NativeSyntheticEvent<NativeSegmentedControlIOSChangeEvent>) => setSegmentedIndex(event.nativeEvent.selectedSegmentIndex)
+
     if (loading || !pokemon)
         return <ActivityIndicator
             style={styles.loading}
             color="black"
             size="large" />
 
-    return <View style={[styles.detailContainer, { backgroundColor: hexToRgbA(colors.pokemon[pokemon.types[0].type.name], 0.7) }]}>
-        <ScrollView 
-            style={styles.scrollView}
+    return <ScrollView 
+            style={[styles.detailContainer, { backgroundColor: hexToRgbA(colors.pokemon[pokemon.types[0].type.name], 0.7) }]}
             contentContainerStyle={styles.scrollViewContent}>
             <PokemonTypes types={pokemon.types} />
             <VirtualizedList
@@ -70,14 +86,17 @@ const PokemonDetail: FC<PokemonDetailScreenProps> = ({
                 pagingEnabled={true}
                 data={pokemon.images}
                 keyExtractor={(_,  index) => index.toString()}
-                renderItem={({ _, index }) => <SpriteCell url={pokemon.images[index]} />}
+                renderItem={({ item }: { item: string }) => <SpriteCell url={item} />}
                 getItemCount={(data: []) => data.length}
-                getItem={item => item} />
+                getItem={(data, index) => data[index]} />
             <Card style={styles.infoContainer}>
-                
+            <SegmentedControl
+                values={[ABOUT.label, BASE_STATS.label, EVOLUTION.label, MOVES.label]}
+                selectedIndex={segmentedIndex}
+                onChange={onSegmentedChange} />
+            {/* <View style={{ height: 3000, width: 100 }}></View> */}
             </Card>
         </ScrollView>
-    </View>
 }
 
 export default PokemonDetail

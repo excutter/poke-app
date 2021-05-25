@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native'
 import { colors } from '../../../styles'
-import { getScreenHeight } from '../../../styles/functionStyles'
 
 export default StyleSheet.create({
     detailContainer: {
@@ -15,11 +14,13 @@ export default StyleSheet.create({
         justifyContent: 'space-between'
     },
     spritesList: {
-        flexGrow: 0.3
+        // flexGrow: 0.3
+        // height: 180
     },
     infoContainer: {
-        flexGrow: 0.7,
+        flex: 1,
         padding: 16,
+        paddingTop: 32,
         borderBottomStartRadius: 0,
         borderBottomEndRadius: 0
     },
