@@ -1,6 +1,6 @@
 import { StyleSheet, StatusBar } from 'react-native'
 import { colors } from '../../../styles'
-import { getScreenWidth } from '../../../styles/functionStyles'
+import { getScreenWidth, handlePadding } from '../../../styles/functionStyles'
 
 export default StyleSheet.create({
     detailContainer: {
@@ -25,8 +25,7 @@ export default StyleSheet.create({
     },
     infoContainer: {
         flex: 1,
-        padding: 16,
-        paddingTop: 32,
+        ...handlePadding([16, 16, 0]),
         borderBottomStartRadius: 0,
         borderBottomEndRadius: 0
     },

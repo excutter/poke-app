@@ -3,29 +3,29 @@ import {
     Text,
     StyleSheet,
     StyleProp,
-    ViewStyle
+    TextStyle
 } from 'react-native'
 import { colors } from '../styles'
 import { handleMargin, handlePadding } from '../styles/functionStyles'
 
 interface LabelProps {
-    style?: StyleProp<ViewStyle>,
+    style?: StyleProp<TextStyle>,
     fontSize?: number,
+    flex?: number,
     bold?: boolean,
-    center?: boolean,
+    textAlign?: 'center' | 'auto' | 'left' | 'right',
     white?: boolean,
-    autoWidth?: boolean
     margin?: [number],
     padding?: [number],
 }
 
 const Label: FC<LabelProps> = ({
     style,
+    flex,
     fontSize,
     bold,
-    center,
+    textAlign = 'auto',
     white,
-    autoWidth,
     margin,
     padding,
     children
@@ -33,12 +33,12 @@ const Label: FC<LabelProps> = ({
 
     const blockStyles: any = [
         styles.label,
-        // autoWidth && styles.autoWidth,
         margin && { ...handleMargin(margin) },
         padding && { ...handlePadding(padding) },
         fontSize && { fontSize },
         bold && styles.bold,
-        center && styles.center,
+        textAlign && { textAlign },
+        flex && { flex },
         white && styles.white,
         style
     ]
@@ -52,12 +52,11 @@ export default Label
 
 const styles = StyleSheet.create({
     label: {
-        width: '100%',
+        // width: '100%',
         paddingVertical: 5,
         color: colors.black
     },
     white: {  color: colors.white },
     bold: { fontWeight: 'bold' },
-    autoWidth: { width: 'auto' },
-    center: { textAlign: 'center' }
+    autoWidth: { width: 'auto' }
 })

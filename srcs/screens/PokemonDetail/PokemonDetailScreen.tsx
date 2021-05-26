@@ -14,12 +14,13 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import { RouteProp } from '@react-navigation/native'
 import SegmentedControl from '@react-native-segmented-control/segmented-control'
 
-import SpriteCell from './SpriteCell'
+import BaseStats from './BaseStats'
 import {
     Button,
-    Card, 
-    Label, 
-    PokemonTypes 
+    Card,
+    Label,
+    PokemonTypes,
+    SpriteCell
 } from '../../components'
 
 import { usePokemon } from '../../hooks'
@@ -30,6 +31,7 @@ import { SpritesProp } from '../../types/PokemonProps'
 import styles from './styles/pokemondetailscreen.styles'
 import { colors, hexToRgbA } from '../../styles'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { ScrollView } from 'react-native-gesture-handler'
 
 type PokemonDetailScreenNavigationProp = StackNavigationProp<MainStackParamList, 'PokemonDetail'>
 type PokemonDetailScreenRouteProp = RouteProp<MainStackParamList, 'PokemonDetail'>
@@ -120,6 +122,12 @@ const PokemonDetail: FC<PokemonDetailScreenProps> = ({
                 values={[ABOUT.label, BASE_STATS.label, EVOLUTION.label, MOVES.label]}
                 selectedIndex={segmentedIndex}
                 onChange={onSegmentedChange} />
+            {
+                segmentedIndex === BASE_STATS.value &&
+                <BaseStats 
+                    baseStats={pokemon.stats}
+                    pokemonType={pokemon.types[0].type.name} />
+            }
         </Card>
     </View>
 }

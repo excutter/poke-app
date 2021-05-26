@@ -4,6 +4,7 @@ import Label from './Label'
 
 import PokemonTypes from './PokemonTypes'
 import PokemonType from './PokemonType'
+import SpriteCell from './SpriteCell'
 
 export {
     Button,
@@ -11,5 +12,6 @@ export {
     Label,
 
     PokemonTypes,
-    PokemonType
+    PokemonType,
+    SpriteCell
 }

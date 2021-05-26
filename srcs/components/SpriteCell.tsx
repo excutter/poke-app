@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
 import { 
     View, 
-    Image 
+    Image,
+    StyleSheet 
 } from 'react-native'
-
-import styles from './styles/spritecell.styles'
+import { getScreenWidth } from '../styles/functionStyles'
 
 type SpriteCellProps = {
     url: string
@@ -20,3 +20,10 @@ const SpriteCell: FC<SpriteCellProps> = ({ url }) => {
 }
 
 export default SpriteCell
+
+const styles = StyleSheet.create({
+    sprite: {
+        flexGrow: 1,
+        width: getScreenWidth * 0.35
+    }
+})
