@@ -19,7 +19,7 @@ const PokemonType: FC<PokemonTypeProps> = ({
         <Label
             bold
             white
-            fontSize={15}>
+            fontSize={13}>
             {`${type.type.name[0].toUpperCase()}${type.type.name.slice(1)}`}
         </Label>
     </Card>
@@ -31,7 +31,7 @@ export default PokemonType
 const styles = StyleSheet.create({
     typeContainer: {
         width: 'auto',
-        ...handlePadding([3, 16]),
+        ...handlePadding([3, 10]),
         marginRight: 16
     }
 })

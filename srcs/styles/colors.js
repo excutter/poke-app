@@ -3,6 +3,7 @@ const colors =  {
     gray: '#AEAEAE',
     white: '#FFFFFF',
     black: '#000000',
+    red: '#FF0000',
     light_gray: '#F4F4F4',
     pokemon: {
         'normal': '#A8A77A',

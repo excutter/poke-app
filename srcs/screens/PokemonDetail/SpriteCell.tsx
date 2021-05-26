@@ -15,7 +15,7 @@ const SpriteCell: FC<SpriteCellProps> = ({ url }) => {
         <Image
             style={styles.sprite} 
             source={{ uri: url }}
-            resizeMode="contain" />
+            resizeMode="cover" />
     </View>
 }
 

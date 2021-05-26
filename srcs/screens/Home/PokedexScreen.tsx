@@ -25,18 +25,17 @@ type PokedexScreenProps = {
 
 const PokedexScreen: FC<PokedexScreenProps> = ({ navigation }) => {
 
-    const [query, setQuery] = useState('')
     const [pageNumber, setPageNumber] = useState(() => 0)
     const {
         pokemon,
         loading,
         hasMore,
         error
-    } = usePokemon({ query, pageNumber })
+    } = usePokemon({ pageNumber })
 
     const loadMorePokemon = useCallback(() => {
         hasMore && !loading && setPageNumber(prevPage => prevPage + 1)
-    }, [hasMore])
+    }, [hasMore, loading])
 
     const onPokemonPress = (id: string, name: string) => navigation.navigate('PokemonDetail', { pokemon: { id, name } })
 
@@ -47,7 +46,7 @@ const PokedexScreen: FC<PokedexScreenProps> = ({ navigation }) => {
         initialNumToRender={20}
         removeClippedSubviews={true}
         data={pokemon}
-        keyExtractor={item => item.name}
+        keyExtractor={(item, index) => index.toString()}
         renderItem={({ item, index }) => (
         <PokemonCell 
             index={index} 

@@ -8,6 +8,9 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@fortawesome/react-native-fontawesome": "^0.2.6",
     "@react-native-community/masked-view": "0.1.10",
     "@react-native-segmented-control/segmented-control": "^2.3.0",
     "@react-navigation/native": "^5.9.4",
@@ -21,7 +24,8 @@
     "react-native-gesture-handler": "~1.10.2",
     "react-native-reanimated": "~2.1.0",
     "react-native-safe-area-context": "3.2.0",
-    "react-native-screens": "~3.0.0"
+    "react-native-screens": "~3.0.0",
+    "react-native-svg": "^12.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

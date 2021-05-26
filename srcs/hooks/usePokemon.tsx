@@ -39,7 +39,7 @@ const usePokemon = ({
     const [hasMore, setHasMore] = useState(false)
 
     useEffect(() => {
-        setPokemon([])
+        // setPokemon([])
         setPokemonDetail(null)
     }, [query])
 

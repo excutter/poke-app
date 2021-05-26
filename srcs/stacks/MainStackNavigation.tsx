@@ -20,7 +20,10 @@ const MainStackNavigation: FC = () => {
         <StackNavigator.Screen
             name="PokemonDetail"
             component={PokemonDetailScreen}
-            options={({ route }) => ({ title: route.params.pokemon.name })} />
+            options={({ route, navigation }) => ({ 
+                title: route.params.pokemon.name,
+                headerShown: false 
+            })} />
     </StackNavigator.Navigator>
 }
 

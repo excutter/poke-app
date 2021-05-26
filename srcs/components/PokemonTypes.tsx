@@ -8,6 +8,7 @@ import {
 import PokemonType from './PokemonType'
 
 import { PokemonTypeProp } from '../types/PokemonProps'
+import { handlePadding } from "../styles/functionStyles"
 
 type PokemonTypesProps = {
     types: PokemonTypeProp[]
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
     typesList: {},
     typesListContainer: {
         flex: 1,
-        padding: 16,
+        ...handlePadding([0, 0]),
         alignItems: 'center'
     }
 })

@@ -1,21 +1,27 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, StatusBar } from 'react-native'
 import { colors } from '../../../styles'
+import { getScreenWidth } from '../../../styles/functionStyles'
 
 export default StyleSheet.create({
     detailContainer: {
         flex: 1,
+        paddingTop: StatusBar.currentHeight,
         backgroundColor: colors.white
     },
-    scrollView: {
-        // flex: 1
+    pokemonContainer: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
-    scrollViewContent: {
-        flexGrow: 1,
-        justifyContent: 'space-between'
+    spritesContainer: { 
+        flex: 1, 
+        alignItems: 'flex-end' 
     },
-    spritesList: {
-        // flexGrow: 0.3
-        // height: 180
+    spritesList: { width: getScreenWidth * 0.35 },
+    pokemonInfo: { 
+        flex: 1,
+        justifyContent: 'center'
     },
     infoContainer: {
         flex: 1,

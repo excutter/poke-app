@@ -56,7 +56,7 @@ export default Card
 
 const styles = StyleSheet.create({
     card: {
-        width: '100%',
+        // width: '100%',
         padding: 16,
         backgroundColor: colors.white,
         borderRadius: 30,

@@ -3,7 +3,7 @@ import { getScreenWidth } from '../../../styles/functionStyles'
 
 export default StyleSheet.create({
     sprite: {
-        flex: 1,
-        width: getScreenWidth
+        flexGrow: 1,
+        width: getScreenWidth * 0.35
     }
 })
