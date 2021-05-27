@@ -1,7 +1,8 @@
 import React, {
     FC,
     useState,
-    useMemo
+    useMemo,
+    useEffect
 } from 'react'
 import {
     View,
@@ -23,7 +24,9 @@ import {
     SpriteCell
 } from '../../components'
 
-import { usePokemon } from '../../hooks'
+import { 
+    usePokemon
+} from '../../hooks'
 
 import { MainStackParamList } from '../../stacks/MainStackNavigation'
 import { SpritesProp } from '../../types/PokemonProps'
@@ -31,7 +34,6 @@ import { SpritesProp } from '../../types/PokemonProps'
 import styles from './styles/pokemondetailscreen.styles'
 import { colors, hexToRgbA } from '../../styles'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
-import { ScrollView } from 'react-native-gesture-handler'
 
 type PokemonDetailScreenNavigationProp = StackNavigationProp<MainStackParamList, 'PokemonDetail'>
 type PokemonDetailScreenRouteProp = RouteProp<MainStackParamList, 'PokemonDetail'>
@@ -47,9 +49,9 @@ type SegmentedOptionProp = {
 }
 
 const ABOUT: SegmentedOptionProp = { label: 'About', value: 0 },
-    BASE_STATS: SegmentedOptionProp = { label: 'Base Stats', value: 1 },
-    EVOLUTION: SegmentedOptionProp = { label: 'Evolution', value: 2 },
-    MOVES: SegmentedOptionProp = { label: 'Moves', value: 3 }
+    BASE_STATS: SegmentedOptionProp = { label: 'Base Stats', value: 0 },
+    EVOLUTION: SegmentedOptionProp = { label: 'Evolution', value: 1 },
+    MOVES: SegmentedOptionProp = { label: 'Moves', value: 2 }
 
 const PokemonDetail: FC<PokemonDetailScreenProps> = ({
     navigation,
@@ -77,6 +79,14 @@ const PokemonDetail: FC<PokemonDetailScreenProps> = ({
 
     const onGoBack = () => navigation.goBack()
     const onSegmentedChange = (event: NativeSyntheticEvent<NativeSegmentedControlIOSChangeEvent>) => setSegmentedIndex(event.nativeEvent.selectedSegmentIndex)
+
+    const formatPokemonIndex = () => {
+        let formattedIndex = route.params.pokemon.id
+        while (formattedIndex.length < 3) {
+            formattedIndex = `0${formattedIndex}`
+        }
+        return formattedIndex
+    }
 
     if (loading || !pokemon)
         return <ActivityIndicator
@@ -106,11 +116,12 @@ const PokemonDetail: FC<PokemonDetailScreenProps> = ({
                     getItem={(data, index) => data[index]} />
             </View>
             <Card style={styles.pokemonInfo} transparent>
-                <Label bold>#001</Label>
+                <Label bold>{`#${formatPokemonIndex()}`}</Label>
                 <Label
+                    numberOfLines={1}
                     white
                     bold
-                    fontSize={34}>
+                    fontSize={route.params.pokemon.name.length <= 9 ? 34 : 30}>
                     {route.params.pokemon.name}
                 </Label>
                 <PokemonTypes types={pokemon.types} />
@@ -119,7 +130,7 @@ const PokemonDetail: FC<PokemonDetailScreenProps> = ({
 
         <Card style={styles.infoContainer}>
             <SegmentedControl
-                values={[ABOUT.label, BASE_STATS.label, EVOLUTION.label, MOVES.label]}
+                values={[BASE_STATS.label, EVOLUTION.label, MOVES.label]}
                 selectedIndex={segmentedIndex}
                 onChange={onSegmentedChange} />
             {

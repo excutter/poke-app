@@ -3,7 +3,8 @@ import {
     Text,
     StyleSheet,
     StyleProp,
-    TextStyle
+    TextStyle,
+    TextProps
 } from 'react-native'
 import { colors } from '../styles'
 import { handleMargin, handlePadding } from '../styles/functionStyles'
@@ -19,7 +20,7 @@ interface LabelProps {
     padding?: [number],
 }
 
-const Label: FC<LabelProps> = ({
+const Label: FC<LabelProps & TextProps> = ({
     style,
     flex,
     fontSize,
@@ -28,7 +29,8 @@ const Label: FC<LabelProps> = ({
     white,
     margin,
     padding,
-    children
+    children,
+    ...props
 }) => {
 
     const blockStyles: any = [
@@ -43,7 +45,9 @@ const Label: FC<LabelProps> = ({
         style
     ]
 
-    return <Text style={blockStyles}>
+    return <Text 
+        {...props}
+        style={blockStyles}>
         {children}
     </Text>
 }

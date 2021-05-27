@@ -4,12 +4,12 @@ import { StyleSheet } from 'react-native'
 import Card from './Card'
 import Label from './Label'
 
-import { PokemonTypeProp } from '../types/PokemonProps'
+import { PokemonTypeSlotProp } from '../types/PokemonProps'
 import { handlePadding } from '../styles/functionStyles'
 import { colors } from '../styles'
 
 type PokemonTypeProps = {
-    type: PokemonTypeProp
+    type: PokemonTypeSlotProp
 }
 
 const PokemonType: FC<PokemonTypeProps> = ({

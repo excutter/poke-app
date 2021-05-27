@@ -4,10 +4,19 @@ import { NavigationContainer } from '@react-navigation/native'
 
 import MainStackNavigation from './srcs/stacks/MainStackNavigation'
 
+import { Loader } from './srcs/components'
+
+import {
+  LoadingProvider
+} from './srcs/context'
+
 const App: FC = () => {
-  return <NavigationContainer>
-    <MainStackNavigation />
-  </NavigationContainer>
+  return <LoadingProvider>
+    <Loader />
+    <NavigationContainer>
+      <MainStackNavigation />
+    </NavigationContainer>
+  </LoadingProvider>
 }
 
 export default App

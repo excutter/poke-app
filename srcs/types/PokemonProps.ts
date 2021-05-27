@@ -16,16 +16,13 @@ export type PokemonProp = {
 export type PokemonTypeSlotProp = {
     slot: number,
     type: {
-        name: 'normal' | 'fire' | 'water' | 'electric' | 'grass' | 'ice' | 'fighting' | 'poison' | 'ground' | 'flying' | 'psychic' | 'bug'
-        | 'rock' | 'ghost' | 'dragon' | 'dark' | 'steel' | 'fairy',
+        name: PokemonTypeProp,
         url: string
     }
 }
 
-export type PokemonTypeProp = {
-    type: 'normal' | 'fire' | 'water' | 'electric' | 'grass' | 'ice' | 'fighting' | 'poison' | 'ground' | 'flying' | 'psychic' | 'bug'
+export type PokemonTypeProp = 'normal' | 'fire' | 'water' | 'electric' | 'grass' | 'ice' | 'fighting' | 'poison' | 'ground' | 'flying' | 'psychic' | 'bug'
         | 'rock' | 'ghost' | 'dragon' | 'dark' | 'steel' | 'fairy'
-}
 
 export type SpritesProp = {
     front_default: string,

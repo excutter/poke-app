@@ -16,12 +16,12 @@ import {
 
 type BaseStatsProps = {
     baseStats: StatsProp[],
-    pokemonType?: PokemonTypeProp
+    pokemonType: PokemonTypeProp
 }
 
 const BaseStats: FC<BaseStatsProps> = ({
     baseStats = [],
-    pokemonType = 'normal'
+    pokemonType
 }) => {
     return <View>
         <VirtualizedList
@@ -36,7 +36,7 @@ const BaseStats: FC<BaseStatsProps> = ({
 
 export default BaseStats
 
-const Stat: FC<StatsProp & PokemonTypeProp> = ({
+const Stat: FC<StatsProp & { type: PokemonTypeProp }> = ({
     base_stat,
     stat,
     type
@@ -46,7 +46,7 @@ const Stat: FC<StatsProp & PokemonTypeProp> = ({
             {stat.name}
         </Label>
         <Label
-            flex={0.2}
+            flex={0.4}
             textAlign="center"
             bold>
             {base_stat}

@@ -7,11 +7,11 @@ import {
 
 import PokemonType from './PokemonType'
 
-import { PokemonTypeProp } from '../types/PokemonProps'
+import { PokemonTypeSlotProp } from '../types/PokemonProps'
 import { handlePadding } from "../styles/functionStyles"
 
 type PokemonTypesProps = {
-    types: PokemonTypeProp[]
+    types: PokemonTypeSlotProp[]
 }
 
 const PokemonTypes: FC<PokemonTypesProps> = ({
@@ -25,7 +25,7 @@ const PokemonTypes: FC<PokemonTypesProps> = ({
       scrollEnabled={false}
       data={types}
       keyExtractor={(_, index) => index.toString()}
-      renderItem={({ item }: { item: PokemonTypeProp }) => <PokemonType type={item} /> }
+      renderItem={({ item }: { item: PokemonTypeSlotProp }) => <PokemonType type={item} /> }
       getItemCount={(data: []) => data.length}
       getItem={(data, index) => data[index]} />
   </View>
