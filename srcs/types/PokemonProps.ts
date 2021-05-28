@@ -10,7 +10,9 @@ export type PokemonProp = {
     height: number,
     types: PokemonTypeSlotProp[],
     sprites: SpritesProp,
-    stats: StatsProp[]
+    stats: StatsProp[],
+    abilities: { ability: AbilityProp }[],
+    moves: { move: MoveProp }[]
 }
 
 export type PokemonTypeSlotProp = {
@@ -21,8 +23,8 @@ export type PokemonTypeSlotProp = {
     }
 }
 
-export type PokemonTypeProp = 'normal' | 'fire' | 'water' | 'electric' | 'grass' | 'ice' | 'fighting' | 'poison' | 'ground' | 'flying' | 'psychic' | 'bug'
-        | 'rock' | 'ghost' | 'dragon' | 'dark' | 'steel' | 'fairy'
+export type PokemonTypeProp = 'normal' | 'fire' | 'water' | 'electric' | 'grass' | 'ice' | 'fighting' | 'poison' | 'ground' |
+    'flying' | 'psychic' | 'bug' | 'rock' | 'ghost' | 'dragon' | 'dark' | 'steel' | 'fairy'
 
 export type SpritesProp = {
     front_default: string,
@@ -38,4 +40,14 @@ export type StatsProp = {
         name: string,
         url: string
     }
+}
+
+export type AbilityProp = {
+    name: string,
+    url: string
+}
+
+export type MoveProp = {
+    name: string,
+    url: string
 }

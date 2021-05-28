@@ -1,8 +1,7 @@
 import React, {
     FC,
     useState,
-    useMemo,
-    useEffect
+    useMemo
 } from 'react'
 import {
     View,
@@ -15,7 +14,9 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import { RouteProp } from '@react-navigation/native'
 import SegmentedControl from '@react-native-segmented-control/segmented-control'
 
+import About from './About'
 import BaseStats from './BaseStats'
+import Moves from './Moves'
 import {
     Button,
     Card,
@@ -24,7 +25,7 @@ import {
     SpriteCell
 } from '../../components'
 
-import { 
+import {
     usePokemon
 } from '../../hooks'
 
@@ -49,9 +50,9 @@ type SegmentedOptionProp = {
 }
 
 const ABOUT: SegmentedOptionProp = { label: 'About', value: 0 },
-    BASE_STATS: SegmentedOptionProp = { label: 'Base Stats', value: 0 },
-    EVOLUTION: SegmentedOptionProp = { label: 'Evolution', value: 1 },
-    MOVES: SegmentedOptionProp = { label: 'Moves', value: 2 }
+    BASE_STATS: SegmentedOptionProp = { label: 'Base Stats', value: 1 },
+    EVOLUTION: SegmentedOptionProp = { label: 'Evolution', value: 2 },
+    MOVES: SegmentedOptionProp = { label: 'Moves', value: 3 }
 
 const PokemonDetail: FC<PokemonDetailScreenProps> = ({
     navigation,
@@ -130,14 +131,20 @@ const PokemonDetail: FC<PokemonDetailScreenProps> = ({
 
         <Card style={styles.infoContainer}>
             <SegmentedControl
-                values={[BASE_STATS.label, EVOLUTION.label, MOVES.label]}
+                values={[ABOUT.label, BASE_STATS.label, EVOLUTION.label, MOVES.label]}
                 selectedIndex={segmentedIndex}
                 onChange={onSegmentedChange} />
             {
-                segmentedIndex === BASE_STATS.value &&
-                <BaseStats 
-                    baseStats={pokemon.stats}
-                    pokemonType={pokemon.types[0].type.name} />
+                segmentedIndex === ABOUT.value ?
+                    <About abilities={pokemon.abilities} />
+                    :
+                    segmentedIndex === BASE_STATS.value ?
+                        <BaseStats
+                            baseStats={pokemon.stats}
+                            pokemonType={pokemon.types[0].type.name} />
+                        :
+                        segmentedIndex === MOVES.value &&
+                        <Moves movements={pokemon.moves} />
             }
         </Card>
     </View>
