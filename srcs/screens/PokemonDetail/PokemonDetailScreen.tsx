@@ -16,6 +16,7 @@ import SegmentedControl from '@react-native-segmented-control/segmented-control'
 
 import About from './About'
 import BaseStats from './BaseStats'
+import Evolution from './Evolution'
 import Moves from './Moves'
 import {
     Button,
@@ -143,8 +144,11 @@ const PokemonDetail: FC<PokemonDetailScreenProps> = ({
                             baseStats={pokemon.stats}
                             pokemonType={pokemon.types[0].type.name} />
                         :
-                        segmentedIndex === MOVES.value &&
-                        <Moves movements={pokemon.moves} />
+                        segmentedIndex === EVOLUTION.value ?
+                            <Evolution />
+                            :
+                            segmentedIndex === MOVES.value &&
+                            <Moves movements={pokemon.moves} />
             }
         </Card>
     </View>
