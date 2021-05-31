@@ -3,6 +3,8 @@ import {
     useState
 } from 'react'
 
+import useFetch from './useFetch'
+
 import { PokemonProp, PokemonCellProp } from '../types/PokemonProps'
 
 type UsePokemonProps = {
@@ -31,6 +33,8 @@ const usePokemon = ({
     query,
     pageNumber = 0
 }: UsePokemonProps): UsePokemonStateProps => {
+
+    // const state = useFetch({ query, page: pageNumber })
 
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)

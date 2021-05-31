@@ -5,7 +5,8 @@ import {
 } from 'react'
 
 type UseFetchProps = {
-    query: string
+    query?: string,
+    page?: number
 }
 
 type StateProps =
@@ -32,10 +33,10 @@ const reducer = (state: StateProps, action: ActionProp): StateProps => {
     }
 }
 
-const useFetch = ({ query }: UseFetchProps): StateProps => {
+const useFetch = ({ query, page }: UseFetchProps): StateProps => {
 
     const [state, dispatch] = useReducer(reducer, initialState)
-    // const cache = useRef<any>()
+    const cache = useRef<any>({})
 
     useEffect(() => {
         let cancelRequest = false
@@ -44,28 +45,28 @@ const useFetch = ({ query }: UseFetchProps): StateProps => {
         const fetchData = async () => {
             dispatch({ type: 'request' })
 
-            // if (cache.current[query]) {
-            //     const data = cache.current[query]
-            //     dispatch({ type: 'success', data })
-            // } else {
-            try {
-                const response = await fetch(`https://pokeapi.co/api/v2/${query}`),
-                    data = await response.json()
-                // cache.current[query] = data
-                if (cancelRequest) return
-                dispatch({ type: 'success', data: data })
-            } catch (error) {
-                if (cancelRequest) return
-                dispatch({ type: 'failure', error: error.toString() })
+            if (cache.current[query]) {
+                const data = cache.current[query]
+                dispatch({ type: 'success', data })
+            } else {
+                try {
+                    const response = await fetch(`https://pokeapi.co/api/v2/${query}`),
+                        data = await response.json()
+                    cache.current[query] = data
+                    if (cancelRequest) return
+                    dispatch({ type: 'success', data: data })
+                } catch (error) {
+                    if (cancelRequest) return
+                    dispatch({ type: 'failure', error: error.toString() })
+                }
             }
-            // }
 
         }
 
         fetchData()
 
         return () => { cancelRequest = true }
-    }, [query])
+    }, [query, page])
 
     return state
 }

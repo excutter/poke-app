@@ -1,32 +1,27 @@
 import React, { 
     FC,
-    useEffect
+    useEffect,
+    useState
 } from 'react'
-import { FlatList } from 'react-native'
+import { ActivityIndicator } from 'react-native'
 
-import { Label } from '../../components'
+import { Card, Label } from '../../components'
 
 import { useFetch } from '../../hooks'
 
 type EvolutionProps = {
-
+    pokemonID: string
 }
 
-const Evolution: FC<EvolutionProps> = ({ }) => {
+const Evolution: FC<EvolutionProps> = ({ pokemonID }) => {
 
-    const state = useFetch({ query: 'ability/65/'})
+    const state = useFetch({ query: `evolution-chain/${pokemonID}/`})
 
-    useEffect(() => {
-        if (state.status === 'success') {
-            console.log(state.data)
-        }
-        if (state.status === 'error') {
-            console.log(state.error)
-        }
-    }, [state])
+    if (state.status === 'loading') return <ActivityIndicator size="large" color="black" />
 
-    return <Label>Evolution</Label>
-    return <FlatList /> 
+    if (state.status === 'error') return <Card><Label>{state.error}</Label></Card>
+
+    return null
 }
 
 export default Evolution

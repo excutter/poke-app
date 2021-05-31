@@ -52,8 +52,7 @@ type SegmentedOptionProp = {
 
 const ABOUT: SegmentedOptionProp = { label: 'About', value: 0 },
     BASE_STATS: SegmentedOptionProp = { label: 'Base Stats', value: 1 },
-    EVOLUTION: SegmentedOptionProp = { label: 'Evolution', value: 2 },
-    MOVES: SegmentedOptionProp = { label: 'Moves', value: 3 }
+    MOVES: SegmentedOptionProp = { label: 'Moves', value: 2 }
 
 const PokemonDetail: FC<PokemonDetailScreenProps> = ({
     navigation,
@@ -132,7 +131,7 @@ const PokemonDetail: FC<PokemonDetailScreenProps> = ({
 
         <Card style={styles.infoContainer}>
             <SegmentedControl
-                values={[ABOUT.label, BASE_STATS.label, EVOLUTION.label, MOVES.label]}
+                values={[ABOUT.label, BASE_STATS.label, MOVES.label]}
                 selectedIndex={segmentedIndex}
                 onChange={onSegmentedChange} />
             {
@@ -144,11 +143,8 @@ const PokemonDetail: FC<PokemonDetailScreenProps> = ({
                             baseStats={pokemon.stats}
                             pokemonType={pokemon.types[0].type.name} />
                         :
-                        segmentedIndex === EVOLUTION.value ?
-                            <Evolution />
-                            :
-                            segmentedIndex === MOVES.value &&
-                            <Moves movements={pokemon.moves} />
+                        segmentedIndex === MOVES.value &&
+                        <Moves movements={pokemon.moves} />
             }
         </Card>
     </View>

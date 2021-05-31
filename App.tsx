@@ -2,7 +2,7 @@ import 'react-native-gesture-handler'
 import React, { FC } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 
-import MainStackNavigation from './srcs/stacks/MainStackNavigation'
+import RootStackNavigation from './srcs/stacks/RootStackNavigation'
 
 import { Loader } from './srcs/components'
 
@@ -14,7 +14,7 @@ const App: FC = () => {
   return <LoadingProvider>
     <Loader />
     <NavigationContainer>
-      <MainStackNavigation />
+      <RootStackNavigation />
     </NavigationContainer>
   </LoadingProvider>
 }
