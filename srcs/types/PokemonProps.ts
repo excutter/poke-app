@@ -12,7 +12,7 @@ export type PokemonProp = {
     sprites: SpritesProp,
     stats: StatsProp[],
     abilities: { ability: AbilityProp }[],
-    moves: { move: MoveProp }[]
+    moves: { move: MovementProp }[]
 }
 
 export type PokemonTypeSlotProp = {
@@ -47,7 +47,7 @@ export type AbilityProp = {
     url: string
 }
 
-export type MoveProp = {
+export type MovementProp = {
     name: string,
     url: string
 }
