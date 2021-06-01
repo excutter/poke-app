@@ -50,7 +50,8 @@ const useFetch = ({ query, page }: UseFetchProps): StateProps => {
                 dispatch({ type: 'success', data })
             } else {
                 try {
-                    const response = await fetch(`https://pokeapi.co/api/v2/${query}`),
+                    const url = query.includes('https') ? query : `https://pokeapi.co/api/v2/${query}`,
+                        response = await fetch(url),
                         data = await response.json()
                     cache.current[query] = data
                     if (cancelRequest) return

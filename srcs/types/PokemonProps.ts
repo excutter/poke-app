@@ -51,3 +51,11 @@ export type MovementProp = {
     name: string,
     url: string
 }
+
+export type Movement = {
+    effect_entries: [{ effect: string }],
+    generation: { name: string, url: string },
+    power: number | null,
+    pp: number,
+    type: { name: string, url: string },
+}
