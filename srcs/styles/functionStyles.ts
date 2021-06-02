@@ -6,7 +6,7 @@ export const getScreenHeight = height
 export const getScreenWidth = width
 export const isAndroid = Platform.OS === 'android'
 
-export const handleMargin = margin => {
+export const handleMargin = (margin: [number] | [number, number] | [number, number, number] | [number, number, number, number] | number) => {
     if (typeof margin === "number") {
         return {
             marginTop: margin,
@@ -17,7 +17,7 @@ export const handleMargin = margin => {
     }
 
     if (typeof margin === "object") {
-        const marginSize = Object.keys(margin).length;
+        const marginSize = Object.keys(margin).length
         switch (marginSize) {
             case 1:
                 return {
@@ -51,7 +51,7 @@ export const handleMargin = margin => {
     }
 }
 
-export const handlePadding = padding => {
+export const handlePadding = (padding: [number] | [number, number] | [number, number, number] | [number, number, number, number] | number) => {
     if (typeof padding === "number") {
         return {
             paddingTop: padding,
@@ -62,7 +62,7 @@ export const handlePadding = padding => {
     }
 
     if (typeof padding === "object") {
-        const paddingSize = Object.keys(padding).length;
+        const paddingSize = Object.keys(padding).length
         switch (paddingSize) {
             case 1:
                 return {
@@ -91,7 +91,7 @@ export const handlePadding = padding => {
                     paddingRight: padding[1],
                     paddingBottom: padding[2],
                     paddingLeft: padding[3]
-                };
+                }
         }
     }
 }

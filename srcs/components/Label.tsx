@@ -16,8 +16,8 @@ interface LabelProps {
     bold?: boolean,
     textAlign?: 'center' | 'auto' | 'left' | 'right',
     white?: boolean,
-    margin?: [number] | number,
-    padding?: [number] | number,
+    margin?: [number] | [number, number] | [number, number, number] | [number, number, number, number] | number,
+    padding?: [number] | [number, number] | [number, number, number] | [number, number, number, number] | number,
 }
 
 const Label: FC<LabelProps & TextProps> = ({

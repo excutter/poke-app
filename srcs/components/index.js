@@ -2,6 +2,7 @@ import Button from './Button'
 import Card from './Card'
 import Label from './Label'
 import Loader from './Loader'
+import WentWrong from './WentWrong'
 
 import PokemonTypes from './PokemonTypes'
 import PokemonType from './PokemonType'
@@ -12,6 +13,7 @@ export {
     Card,
     Label,
     Loader,
+    WentWrong,
 
     PokemonTypes,
     PokemonType,

@@ -27,5 +27,8 @@ const Modal: FC<ModalProps> = ({
 export default Modal
 
 const style = StyleSheet.create({
-    modalContainer: { backgroundColor: colors.white }
+    modalContainer: { 
+        padding: 16,
+        backgroundColor: colors.white
+     }
 })

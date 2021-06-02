@@ -16,8 +16,8 @@ type CardProps = {
     onPress?: (event: GestureResponderEvent) => void,
     lightGray?: boolean,
     transparent?: boolean,
-    padding?: number[] | number,
-    margin?: number[] | number
+    padding?: [number] | [number, number] | [number, number, number] | [number, number, number, number] | number,
+    margin?: [number] | [number, number] | [number, number, number] | [number, number, number, number] | number
 }
 
 const Card: FC<CardProps> = ({
