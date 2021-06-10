@@ -2,7 +2,8 @@ import { useNavigation } from '@react-navigation/core'
 import React, { FC } from 'react'
 import {
     FlatList,
-    StyleSheet
+    StyleSheet,
+    Platform
 } from 'react-native'
 
 import { Card, Label } from '../../components'
@@ -47,5 +48,18 @@ const Moves: FC<MovesProps> = ({ movements }) => {
 export default Moves
 
 const styles = StyleSheet.create({
-    movementsContent: { paddingTop: 16 }
+    movementsContent: { 
+        paddingTop: 16,
+        ...Platform.select({
+            ios: {
+                // backgroundColor: 'red'
+            },
+            android: {
+                // backgroundColor: 'blue'
+            },
+            default: { 
+                // backgroundColor: 'green'
+            }
+        })
+    },
 })

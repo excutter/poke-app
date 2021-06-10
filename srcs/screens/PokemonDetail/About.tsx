@@ -1,6 +1,8 @@
 import React, { FC } from 'react'
 import {
-    ScrollView, StyleSheet, VirtualizedList
+    ScrollView, 
+    StyleSheet, 
+    VirtualizedList
 } from 'react-native'
 
 import { Card, Label } from '../../components'

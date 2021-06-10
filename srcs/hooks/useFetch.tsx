@@ -55,7 +55,7 @@ const useFetch = ({ query, page }: UseFetchProps): StateProps => {
                         data = await response.json()
                     cache.current[query] = data
                     if (cancelRequest) return
-                    dispatch({ type: 'success', data: data })
+                    dispatch({ type: 'success', data })
                 } catch (error) {
                     if (cancelRequest) return
                     dispatch({ type: 'failure', error: error.toString() })
