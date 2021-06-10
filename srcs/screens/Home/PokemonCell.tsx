@@ -1,10 +1,8 @@
-import React, { useEffect, FC } from 'react'
-import { usePokemon } from '../../hooks'
+import React, { FC } from 'react'
 
 import { Card, Label } from '../../components'
 
 import styles from './styles/pokemoncell.styles'
-import { GestureResponderEvent } from 'react-native'
 
 type PokemonDetailsProps = {
     name: string,
@@ -33,7 +31,7 @@ const PokemonCell: FC<PokemonProps> = ({
         lightGray
         onPress={() => onPress((index + 1).toString(), pokemon.name)}>
         <Label
-            center 
+            textAlign="center" 
             bold>
             {pokemon.name}
         </Label>
