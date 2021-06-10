@@ -33,6 +33,8 @@ const PokedexScreen: FC<PokedexScreenProps> = ({ navigation }) => {
         error
     } = usePokemon({ pageNumber })
 
+    // console.log('test')
+
     const loadMorePokemon = useCallback(() => {
         hasMore && !loading && setPageNumber(prevPage => prevPage + 1)
     }, [hasMore, loading])
