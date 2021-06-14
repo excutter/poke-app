@@ -1,6 +1,7 @@
 import React, {
     FC,
     useState,
+    useEffect,
     useMemo
 } from 'react'
 import {
@@ -13,6 +14,7 @@ import {
 import { StackNavigationProp } from '@react-navigation/stack'
 import { RouteProp } from '@react-navigation/native'
 import SegmentedControl from '@react-native-segmented-control/segmented-control'
+import { useAsyncStorage } from '@react-native-async-storage/async-storage'
 
 import About from './About'
 import BaseStats from './BaseStats'
@@ -59,11 +61,25 @@ const PokemonDetail: FC<PokemonDetailScreenProps> = ({
 }) => {
 
     const [segmentedIndex, setSegmentedIndex] = useState(0)
+    const { getItem, setItem } = useAsyncStorage('favouritesPokemon')
     const {
         pokemonDetail,
         loading,
         error
     } = usePokemon({ query: route.params.pokemon.id })
+
+    const getFavouritesPokemon = async () => {
+        try {
+            const favourites = await getItem()
+            console.log(favourites)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        getFavouritesPokemon()
+    }, [])
 
     const pokemon = useMemo(() => {
         if (!pokemonDetail) return null

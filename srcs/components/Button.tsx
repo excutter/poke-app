@@ -1,27 +1,27 @@
 import React, { FC } from 'react'
 import { 
     TouchableOpacity, 
-    GestureResponderEvent, 
     StyleProp, 
     ViewStyle, 
     StyleSheet,
-    StatusBar
+    StatusBar,
+    ButtonProps,
 } from 'react-native'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { IconProp } from '@fortawesome/fontawesome-svg-core'
 
 import Label from './Label'
 
 import { colors } from '../styles'
-import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { handleMargin } from '../styles/functionStyles'
 
-type ButtonProps = {
+type Button = ButtonProps & {
     style?: StyleProp<ViewStyle>
-    onPress: (event: GestureResponderEvent) => void,
-    color: 'red' | 'black' | 'white'
+    color: 'red' | 'black' | 'white',
+    title?: string
 }
 
-type RoundButtonProps = ButtonProps & {
+type RoundButtonProps = Button & {
     icon: IconProp,
     size?: number,
     float?: boolean,

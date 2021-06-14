@@ -2,15 +2,12 @@ import React, { FC } from 'react'
 import { 
     Text,
     StyleSheet,
-    StyleProp,
-    TextStyle,
     TextProps
 } from 'react-native'
 import { colors } from '../styles'
 import { handleMargin, handlePadding } from '../styles/functionStyles'
 
 interface LabelProps {
-    style?: StyleProp<TextStyle>,
     fontSize?: number,
     flex?: number,
     bold?: boolean,

@@ -13,7 +13,7 @@ import { MainStackParamList } from '../../stacks/MainStackNavigation'
 
 import usePokemon from '../../hooks/usePokemon'
 
-import PokemonCell from './PokemonCell'
+import { PokemonCell } from '../../components'
 
 import styles from './styles/pokedexscreen.styles'
 
@@ -33,8 +33,6 @@ const PokedexScreen: FC<PokedexScreenProps> = ({ navigation }) => {
         error
     } = usePokemon({ pageNumber })
 
-    // console.log('test')
-
     const loadMorePokemon = useCallback(() => {
         hasMore && !loading && setPageNumber(prevPage => prevPage + 1)
     }, [hasMore, loading])
@@ -53,6 +51,7 @@ const PokedexScreen: FC<PokedexScreenProps> = ({ navigation }) => {
         <PokemonCell 
             index={index} 
             pokemon={item}
+            isFavorite={true}
             onPress={onPokemonPress} />)}
         onEndReached={loadMorePokemon}
         ListFooterComponent={
