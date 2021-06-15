@@ -8,6 +8,7 @@ import PokemonCell from './PokemonCell'
 import PokemonTypes from './PokemonTypes'
 import PokemonType from './PokemonType'
 import SpriteCell from './SpriteCell'
+import SwipeableBackgroundComponent from './SwipeableBackgroundComponent'
 
 export {
     Button,
@@ -19,5 +20,6 @@ export {
     PokemonCell,
     PokemonTypes,
     PokemonType,
-    SpriteCell
+    SpriteCell,
+    SwipeableBackgroundComponent
 }

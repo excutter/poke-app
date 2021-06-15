@@ -5,6 +5,8 @@ const colors =  {
     black: '#000000',
     red: '#FF0000',
     light_gray: '#F4F4F4',
+    yellow: '#F7D02C',
+    green: '#7AC74C',
     pokemon: {
         normal: '#A8A77A',
         fire: '#EE8130',

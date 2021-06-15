@@ -17,7 +17,7 @@ import { handleMargin } from '../styles/functionStyles'
 
 type Button = ButtonProps & {
     style?: StyleProp<ViewStyle>
-    color: 'red' | 'black' | 'white',
+    color: 'red' | 'black' | 'white' | 'yellow' | 'gray',
     title?: string
 }
 
@@ -74,6 +74,8 @@ const styles = StyleSheet.create({
     red: { backgroundColor: colors.red },
     white: { backgroundColor: colors.white },
     black: { backgroundColor: colors.black },
+    gray: { backgroundColor: colors.light_gray },
+    yellow: { backgroundColor: colors.yellow },
     whiteText: { color: colors.white },
     blackText: { color: colors.black }
 })

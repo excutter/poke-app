@@ -32,11 +32,11 @@ import {
 } from '../../hooks'
 
 import { MainStackParamList } from '../../stacks/MainStackNavigation'
-import { SpritesProp } from '../../types/PokemonProps'
+import { PokemonCellProp, SpritesProp } from '../../types/PokemonProps'
 
 import styles from './styles/pokemondetailscreen.styles'
 import { colors, hexToRgbA } from '../../styles'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft, faStar } from '@fortawesome/free-solid-svg-icons'
 
 type PokemonDetailScreenNavigationProp = StackNavigationProp<MainStackParamList, 'PokemonDetail'>
 type PokemonDetailScreenRouteProp = RouteProp<MainStackParamList, 'PokemonDetail'>
@@ -61,25 +61,12 @@ const PokemonDetail: FC<PokemonDetailScreenProps> = ({
 }) => {
 
     const [segmentedIndex, setSegmentedIndex] = useState(0)
+    const [isFavorite, setFavorite] = useState(false)
     const { getItem, setItem } = useAsyncStorage('favouritesPokemon')
     const {
         pokemonDetail,
-        loading,
-        error
+        loading
     } = usePokemon({ query: route.params.pokemon.id })
-
-    const getFavouritesPokemon = async () => {
-        try {
-            const favourites = await getItem()
-            console.log(favourites)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    useEffect(() => {
-        getFavouritesPokemon()
-    }, [])
 
     const pokemon = useMemo(() => {
         if (!pokemonDetail) return null
@@ -93,15 +80,42 @@ const PokemonDetail: FC<PokemonDetailScreenProps> = ({
         return pokemon
     }, [pokemonDetail])
 
-    const onGoBack = () => navigation.goBack()
-    const onSegmentedChange = (event: NativeSyntheticEvent<NativeSegmentedControlIOSChangeEvent>) => setSegmentedIndex(event.nativeEvent.selectedSegmentIndex)
-
-    const formatPokemonIndex = () => {
+    const formatPokemonIndex = useMemo(() => {
         let formattedIndex = route.params.pokemon.id
         while (formattedIndex.length < 3) {
             formattedIndex = `0${formattedIndex}`
         }
         return formattedIndex
+    }, [pokemonDetail])
+
+    const getFavouritesPokemon: Promise<{[key: string]: PokemonCellProp}> = useMemo(async () => {
+        try {
+            const favourites = await getItem()
+            return favourites !== null ? JSON.parse(favourites) : {}
+        } catch (error) {
+            return {}
+        }
+    }, [isFavorite])
+
+    useEffect(() => {
+        const getFavourites = async () => {
+            const favouritesPokemon = { ...await getFavouritesPokemon }
+            setFavorite(favouritesPokemon.hasOwnProperty(route.params.pokemon.id))
+        }
+        getFavourites()
+    }, [])
+
+    const onGoBack = () => navigation.goBack()
+    const onSegmentedChange = (event: NativeSyntheticEvent<NativeSegmentedControlIOSChangeEvent>) => setSegmentedIndex(event.nativeEvent.selectedSegmentIndex)
+
+    const onFavorite = async () => {
+        setFavorite(prevFav => !prevFav)
+        let favouritesPokemon = { ...await getFavouritesPokemon }
+        if (!isFavorite)
+            favouritesPokemon[route.params.pokemon.id] = route.params.pokemon
+        else
+            delete favouritesPokemon[route.params.pokemon.id]
+        await setItem(JSON.stringify(favouritesPokemon))
     }
 
     if (loading || !pokemon)
@@ -117,6 +131,12 @@ const PokemonDetail: FC<PokemonDetailScreenProps> = ({
             color="black"
             icon={faArrowLeft}
             onPress={onGoBack} />
+        <Button
+            float
+            direction="topRight"
+            color={`${isFavorite ? 'yellow' : 'black'}`}
+            icon={faStar}
+            onPress={onFavorite} />
         <Card
             style={styles.pokemonContainer}
             transparent>
@@ -132,7 +152,7 @@ const PokemonDetail: FC<PokemonDetailScreenProps> = ({
                     getItem={(data, index) => data[index]} />
             </View>
             <Card style={styles.pokemonInfo} transparent>
-                <Label bold>{`#${formatPokemonIndex()}`}</Label>
+                <Label bold>{`#${formatPokemonIndex}`}</Label>
                 <Label
                     numberOfLines={1}
                     white

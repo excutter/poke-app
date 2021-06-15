@@ -6,17 +6,13 @@ import Card from './Card'
 import Label from './Label'
 
 import { faStar } from '@fortawesome/free-solid-svg-icons'
-
-type PokemonDetailsProps = {
-    name: string,
-    url: string
-}
+import { PokemonCellProp } from '../types/PokemonProps'
 
 type PokemonProps = {
     index: number,
-    onPress: (id: string, name: string) => void,
-    pokemon: PokemonDetailsProps,
-    isFavorite: boolean
+    onPress: (pokemon: PokemonCellProp) => void,
+    pokemon: PokemonCellProp,
+    isFavorite?: boolean
 }
 
 const PokemonCell: FC<PokemonProps> = ({
@@ -31,10 +27,15 @@ const PokemonCell: FC<PokemonProps> = ({
         index % 2 !== 0 ? styles.pokemonCellPair : styles.pokemonCellOdd,
     ]
 
+    const onPokemonPress = () => {
+        const newPokemon: PokemonCellProp = { id: index.toString(), name: pokemon.name }
+        onPress && onPress(newPokemon)
+    }
+
     return <Card
         style={blockStyles}
         lightGray
-        onPress={() => onPress((index + 1).toString(), pokemon.name)}>
+        onPress={onPokemonPress}>
         {
             isFavorite &&
             <FontAwesomeIcon

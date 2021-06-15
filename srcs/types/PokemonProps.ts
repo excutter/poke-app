@@ -1,6 +1,7 @@
 export type PokemonCellProp = {
-    url: string,
-    name: string
+    url?: string,
+    name: string,
+    id: string
 }
 
 export type PokemonProp = {

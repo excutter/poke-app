@@ -6,7 +6,7 @@ export const getScreenHeight = height
 export const getScreenWidth = width
 export const isAndroid = Platform.OS === 'android'
 
-export const handleMargin = (margin: [number] | [number, number] | [number, number, number] | [number, number, number, number] | number) => {
+export const handleMargin = (margin: [number | string] | [number | string, number | string] | [number | string, number | string, number | string] | [number | string, number | string, number | string, number | string] | number | string) => {
     if (typeof margin === "number") {
         return {
             marginTop: margin,

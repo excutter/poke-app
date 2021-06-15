@@ -15,10 +15,11 @@ import {
     Button 
 } from '../components'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
+import { PokemonCellProp } from '../types/PokemonProps'
 
 export type MainStackParamList = {
     Pokedex: undefined,
-    PokemonDetail: { pokemon: { id: string, name: string } },
+    PokemonDetail: { pokemon: PokemonCellProp },
     Favourites: undefined
 }
 
