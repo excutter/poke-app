@@ -58,7 +58,6 @@ const PokedexScreen: FC<PokedexScreenProps> = ({ navigation }) => {
         style={styles.flatList}
         contentContainerStyle={styles.flatListContainer}
         numColumns={2}
-        initialNumToRender={20}
         removeClippedSubviews={true}
         data={pokemon}
         keyExtractor={(_, index) => index.toString()}

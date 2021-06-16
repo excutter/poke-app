@@ -6,6 +6,7 @@ import React, {
 } from 'react'
 import {
     View,
+    SafeAreaView,
     ActivityIndicator,
     VirtualizedList,
     NativeSyntheticEvent,
@@ -124,17 +125,18 @@ const PokemonDetail: FC<PokemonDetailScreenProps> = ({
             color="black"
             size="large" />
 
-    return <View style={[styles.detailContainer, { backgroundColor: hexToRgbA(colors.pokemon[pokemon.types[0].type.name], 0.7) }]}>
+    return <View
+            style={[styles.detailContainer, { backgroundColor: hexToRgbA(colors.pokemon[pokemon.types[0].type.name], 0.7) }]}>
         <Button
             float
             direction="topLeft"
-            color="black"
+            backgroundColor="black"
             icon={faArrowLeft}
             onPress={onGoBack} />
         <Button
             float
             direction="topRight"
-            color={`${isFavorite ? 'yellow' : 'black'}`}
+            backgroundColor={`${isFavorite ? 'yellow' : 'black'}`}
             icon={faStar}
             onPress={onFavorite} />
         <Card

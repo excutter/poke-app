@@ -6,6 +6,7 @@ import {
     StyleSheet,
     StatusBar,
     ButtonProps,
+    Platform
 } from 'react-native'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
@@ -13,35 +14,49 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import Label from './Label'
 
 import { colors } from '../styles'
-import { handleMargin } from '../styles/functionStyles'
+import { handleMargin, handlePadding } from '../styles/functionStyles'
 
 type Button = ButtonProps & {
     style?: StyleProp<ViewStyle>
-    color: 'red' | 'black' | 'white' | 'yellow' | 'gray',
-    title?: string
+    backgroundColor?: 'red' | 'black' | 'white' | 'yellow' | 'gray' | 'transparent',
+    title?: string,
+    margin?: [number] | [number, number] | [number, number, number] | [number, number, number, number] | number,
+    padding?: [number] | [number, number] | [number, number, number] | [number, number, number, number] | number
 }
 
 type RoundButtonProps = Button & {
     icon: IconProp,
+    color?: 'black' | 'white',
     size?: number,
     float?: boolean,
-    direction?: 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight'
+    direction?: 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight',
+    width?: number | string,
+    height?: number | string
 }
 
 const RoundButton: FC<RoundButtonProps> = ({
     style,
     onPress,
     icon,
-    size = 15,
     color,
+    size = 15,
+    backgroundColor,
     float,
-    direction
+    direction,
+    margin,
+    padding,
+    width,
+    height
 }) => {
-    const blockStyles = [
+    const blockStyles: any = [
         styles.roundButton,
-        color && styles[color],
+        backgroundColor && styles[backgroundColor],
         float && styles.floatButton,
         float && direction && styles[direction],
+        width && { width },
+        height && { height },
+        margin && { ...handleMargin(margin) },
+        padding && { ...handlePadding(padding) },
         style
     ]
     
@@ -51,7 +66,8 @@ const RoundButton: FC<RoundButtonProps> = ({
         <FontAwesomeIcon
             style={styles.iconButton}
             icon={icon}
-            size={size} />
+            size={size}
+            color={color} />
     </TouchableOpacity>
 }
 
@@ -66,8 +82,16 @@ const styles = StyleSheet.create({
         borderRadius: 20
     },
     floatButton: { position: 'absolute', zIndex: 2 },
-    topLeft: { top: StatusBar.currentHeight, left: 16 },
-    topRight: { top: StatusBar.currentHeight, right: 16 },
+    ...Platform.select({
+        ios: {
+            topLeft: { top: StatusBar.currentHeight! + 48, left: 16 },
+            topRight: { top: StatusBar.currentHeight! + 48, right: 16 },
+        },
+        default: {
+            topLeft: { top: StatusBar.currentHeight, left: 16 },
+            topRight: { top: StatusBar.currentHeight, right: 16 },
+        }
+    }),
     bottomLeft: { bottom: 0, right: 16 },
     bottomRight: { bottom: 0, right: 16 },
     iconButton: { color: colors.white },
@@ -76,6 +100,7 @@ const styles = StyleSheet.create({
     black: { backgroundColor: colors.black },
     gray: { backgroundColor: colors.light_gray },
     yellow: { backgroundColor: colors.yellow },
+    transparent: { backgroundColor: 'transparent' },
     whiteText: { color: colors.white },
     blackText: { color: colors.black }
 })

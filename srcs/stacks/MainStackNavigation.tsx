@@ -1,8 +1,9 @@
 import React, { FC } from 'react'
-import { 
+import {
     createStackNavigator,
     StackNavigationProp
 } from '@react-navigation/stack'
+import { createNativeStackNavigator } from 'react-native-screens/native-stack'
 import { RouteProp } from '@react-navigation/native'
 
 import {
@@ -10,9 +11,9 @@ import {
     PokedexScreen,
     PokemonDetailScreen
 } from '../screens'
-import { 
-    Card, 
-    Button 
+import {
+    Card,
+    Button
 } from '../components'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import { PokemonCellProp } from '../types/PokemonProps'
@@ -31,21 +32,27 @@ type MainStackNavigationProps = {
     route: Route
 }
 
-const StackNavigator = createStackNavigator<MainStackParamList>()
+const StackNavigator = createNativeStackNavigator<MainStackParamList>()
 
 const MainStackNavigation: FC<MainStackNavigationProps> = ({ navigation }) => {
-    return <StackNavigator.Navigator initialRouteName="Pokedex">
+    return <StackNavigator.Navigator
+        initialRouteName="Pokedex"
+        screenOptions={{ headerLargeTitle: true }}>
         <StackNavigator.Screen
             name="Pokedex"
             component={PokedexScreen}
             options={{
-                headerRight: () => <Card transparent>
+                headerRight: () => (
                     <Button
                         title="Fav"
+                        backgroundColor="transparent"
                         color="black"
+                        size={22}
                         icon={faStar}
+                        width="auto"
+                        height="auto"
                         onPress={() => navigation.navigate('Favourites')} />
-                </Card>
+                )
             }} />
         <StackNavigator.Screen
             name="PokemonDetail"

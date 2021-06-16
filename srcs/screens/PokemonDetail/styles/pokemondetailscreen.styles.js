@@ -1,13 +1,28 @@
-import { StyleSheet, StatusBar } from 'react-native'
+import { 
+    StyleSheet, 
+    StatusBar,
+    Platform
+} from 'react-native'
 import { colors } from '../../../styles'
 import { getScreenWidth, handlePadding } from '../../../styles/functionStyles'
 
 export default StyleSheet.create({
-    detailContainer: {
-        flex: 1,
-        paddingTop: StatusBar.currentHeight,
-        backgroundColor: colors.white
-    },
+    ...Platform.select({
+        ios: {
+            detailContainer: {
+                paddingTop: StatusBar.currentHeight + 48,
+                flex: 1,
+                backgroundColor: colors.white
+            }
+        },
+        android: {
+            detailContainer: {
+                paddingTop: StatusBar.currentHeight,
+                flex: 1,
+                backgroundColor: colors.white
+            }
+        },
+    }),
     pokemonContainer: {
         width: '100%',
         flexDirection: 'row',

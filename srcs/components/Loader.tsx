@@ -19,7 +19,7 @@ const Loader: FC = () => {
 
     return <View style={styles.loaderContainer}>
         <ActivityIndicator
-            color={colors.red}
+            color={colors.black}
             size="large" />
     </View>
 }
@@ -28,6 +28,8 @@ export default Loader
 
 const styles = StyleSheet.create({
     loaderContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
         position: 'absolute',
         top: 0,
         left: 0,

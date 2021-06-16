@@ -7,6 +7,7 @@ import Label from './Label'
 
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import { PokemonCellProp } from '../types/PokemonProps'
+import { handleMargin } from '../styles/functionStyles'
 
 type PokemonProps = {
     index: number,
@@ -22,18 +23,13 @@ const PokemonCell: FC<PokemonProps> = ({
     isFavorite = false
 }) => {
 
-    const blockStyles: any = [
-        styles.pokemonCell,
-        index % 2 !== 0 ? styles.pokemonCellPair : styles.pokemonCellOdd,
-    ]
-
     const onPokemonPress = () => {
         const newPokemon: PokemonCellProp = { id: index.toString(), name: pokemon.name }
-        onPress && onPress(newPokemon)
+        onPress(newPokemon)
     }
 
     return <Card
-        style={blockStyles}
+        style={styles.pokemonCell}
         lightGray
         onPress={onPokemonPress}>
         {
@@ -59,15 +55,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 16,
-        marginBottom: 16
-    },
-    pokemonCellPair: { 
-        marginLeft: 8,
-        marginRight: 0
-    },
-    pokemonCellOdd: {
-        marginLeft: 0,
-        marginRight: 8
+        ...handleMargin([0, 8, 16])
     },
     favorite: {
         position: 'absolute',
