@@ -12,7 +12,7 @@ import {
 import { StackNavigationProp } from '@react-navigation/stack'
 import { MainStackParamList } from '../../stacks/MainStackNavigation'
 import { useAsyncStorage } from '@react-native-async-storage/async-storage'
-import { useNavigationState } from '@react-navigation/native'
+import { useIsFocused } from '@react-navigation/native'
 
 import usePokemon from '../../hooks/usePokemon'
 
@@ -32,7 +32,7 @@ const PokedexScreen: FC<PokedexScreenProps> = ({ navigation }) => {
     const [pageNumber, setPageNumber] = useState(() => 0)
     const [favourites, setFavourites] = useState<{[key: string]: PokemonCellProp}>({})
     const { getItem } = useAsyncStorage('favouritesPokemon')
-    const index = useNavigationState(state => state.index)
+    const isFocused = useIsFocused()
     const {
         pokemon,
         loading,
@@ -50,7 +50,7 @@ const PokedexScreen: FC<PokedexScreenProps> = ({ navigation }) => {
             setFavourites(favourites)
         }
         getFavourites()
-    }, [index])
+    }, [isFocused])
 
     const onPokemonPress = (pokemon: PokemonCellProp) => navigation.navigate('PokemonDetail', { pokemon })
 
