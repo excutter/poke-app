@@ -4,10 +4,12 @@ import {
     useLoadingUpdate
 } from './useLoading'
 import useFetch from './useFetch'
+import useFavourites from './useFavourites'
 
 export {
     usePokemon,
     useLoading,
     useLoadingUpdate,
-    useFetch
+    useFetch,
+    useFavourites
 }

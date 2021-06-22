@@ -1,19 +1,11 @@
-import React, {
-    FC,
-    useEffect,
-    useState
-} from 'react'
+import React, { FC } from 'react'
 import { VirtualizedList } from 'react-native'
-import { useAsyncStorage } from '@react-native-async-storage/async-storage'
 import { StackNavigationProp } from '@react-navigation/stack'
+import { useSelector } from 'react-redux'
+
+import { PokemonCell } from '../../components'
+
 import { MainStackParamList } from '../../stacks/MainStackNavigation'
-
-import {
-    PokemonCell
-} from '../../components'
-
-import { useLoadingUpdate } from '../../hooks'
-
 import { PokemonCellProp } from '../../types/PokemonProps'
 import styles from './styles/favouritesscreen.styles'
 
@@ -25,21 +17,7 @@ type FavouritesScreenProps = {
 
 const FavouritesScreen: FC<FavouritesScreenProps> = ({ navigation }) => {
 
-    const [favourites, setFavourites] = useState<PokemonCellProp[]>([])
-    const { getItem } = useAsyncStorage('favouritesPokemon')
-    const toggleLoader = useLoadingUpdate()
-
-    useEffect(() => {
-        const getFavourites = async () => {
-            toggleLoader()
-            const item = await getItem(),
-                favourites: { [key: string]: PokemonCellProp } = item !== null ? JSON.parse(item) : {}
-
-            setFavourites(Object.keys(favourites).map(key => favourites[key]))
-            toggleLoader()
-        }
-        getFavourites()
-    }, [])
+    const favourites = useSelector(state => state)
 
     const onPokemonPress = (pokemon: PokemonCellProp) => navigation.navigate('PokemonDetail', { pokemon })
 

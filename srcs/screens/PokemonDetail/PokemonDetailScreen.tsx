@@ -6,7 +6,6 @@ import React, {
 } from 'react'
 import {
     View,
-    SafeAreaView,
     ActivityIndicator,
     VirtualizedList,
     NativeSyntheticEvent,
@@ -15,7 +14,7 @@ import {
 import { StackNavigationProp } from '@react-navigation/stack'
 import { RouteProp } from '@react-navigation/native'
 import SegmentedControl from '@react-native-segmented-control/segmented-control'
-import { useAsyncStorage } from '@react-native-async-storage/async-storage'
+import { useSelector, useDispatch } from 'react-redux'
 
 import About from './About'
 import BaseStats from './BaseStats'
@@ -28,12 +27,11 @@ import {
     SpriteCell
 } from '../../components'
 
-import {
-    usePokemon
-} from '../../hooks'
+import { usePokemon } from '../../hooks'
 
 import { MainStackParamList } from '../../stacks/MainStackNavigation'
 import { PokemonCellProp, SpritesProp } from '../../types/PokemonProps'
+import { addFavourite, removeFavourite } from '../../reducers/favouritesReducer'
 
 import styles from './styles/pokemondetailscreen.styles'
 import { colors, hexToRgbA } from '../../styles'
@@ -63,7 +61,8 @@ const PokemonDetail: FC<PokemonDetailScreenProps> = ({
 
     const [segmentedIndex, setSegmentedIndex] = useState(0)
     const [isFavorite, setFavorite] = useState(false)
-    const { getItem, setItem } = useAsyncStorage('favouritesPokemon')
+    const favourites = useSelector((state: PokemonCellProp[]) => state)
+    const dispatch = useDispatch()
     const {
         pokemonDetail,
         loading
@@ -87,23 +86,10 @@ const PokemonDetail: FC<PokemonDetailScreenProps> = ({
             formattedIndex = `0${formattedIndex}`
         }
         return formattedIndex
-    }, [pokemonDetail])
-
-    const getFavouritesPokemon: Promise<{[key: string]: PokemonCellProp}> = useMemo(async () => {
-        try {
-            const favourites = await getItem()
-            return favourites !== null ? JSON.parse(favourites) : {}
-        } catch (error) {
-            return {}
-        }
-    }, [isFavorite])
+    }, [])
 
     useEffect(() => {
-        const getFavourites = async () => {
-            const favouritesPokemon = { ...await getFavouritesPokemon }
-            setFavorite(favouritesPokemon.hasOwnProperty(route.params.pokemon.id))
-        }
-        getFavourites()
+        setFavorite(favourites.find(pokemon => pokemon.id == route.params.pokemon.id) ? true : false)
     }, [])
 
     const onGoBack = () => navigation.goBack()
@@ -111,12 +97,7 @@ const PokemonDetail: FC<PokemonDetailScreenProps> = ({
 
     const onFavorite = async () => {
         setFavorite(prevFav => !prevFav)
-        let favouritesPokemon = { ...await getFavouritesPokemon }
-        if (!isFavorite)
-            favouritesPokemon[route.params.pokemon.id] = route.params.pokemon
-        else
-            delete favouritesPokemon[route.params.pokemon.id]
-        await setItem(JSON.stringify(favouritesPokemon))
+        isFavorite ? dispatch(removeFavourite(route.params.pokemon)) : dispatch(addFavourite(route.params.pokemon))
     }
 
     if (loading || !pokemon)
@@ -126,7 +107,7 @@ const PokemonDetail: FC<PokemonDetailScreenProps> = ({
             size="large" />
 
     return <View
-            style={[styles.detailContainer, { backgroundColor: hexToRgbA(colors.pokemon[pokemon.types[0].type.name], 0.7) }]}>
+        style={[styles.detailContainer, { backgroundColor: hexToRgbA(colors.pokemon[pokemon.types[0].type.name], 0.7) }]}>
         <Button
             float
             direction="topLeft"

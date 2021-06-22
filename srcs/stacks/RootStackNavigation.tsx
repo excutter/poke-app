@@ -2,7 +2,11 @@ import React, {
     FC,
     ReactNode
 } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { 
+    StyleSheet, 
+    View,
+    LogBox
+} from 'react-native'
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack'
 
 import MainStackNavigation from './MainStackNavigation'
@@ -60,3 +64,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     }
 })
+
+LogBox.ignoreLogs([
+    'Non-serializable values were found in the navigation state',
+])

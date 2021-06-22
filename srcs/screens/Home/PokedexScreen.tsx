@@ -1,7 +1,6 @@
 import React, { 
     useState, 
     useCallback, 
-    useEffect,
     FC 
 } from 'react'
 import {
@@ -11,8 +10,7 @@ import {
 } from 'react-native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { MainStackParamList } from '../../stacks/MainStackNavigation'
-import { useAsyncStorage } from '@react-native-async-storage/async-storage'
-import { useIsFocused } from '@react-navigation/native'
+import { useSelector } from 'react-redux'
 
 import usePokemon from '../../hooks/usePokemon'
 
@@ -30,9 +28,7 @@ type PokedexScreenProps = {
 const PokedexScreen: FC<PokedexScreenProps> = ({ navigation }) => {
 
     const [pageNumber, setPageNumber] = useState(() => 0)
-    const [favourites, setFavourites] = useState<{[key: string]: PokemonCellProp}>({})
-    const { getItem } = useAsyncStorage('favouritesPokemon')
-    const isFocused = useIsFocused()
+    const favourites = useSelector((state: PokemonCellProp[]) => state)
     const {
         pokemon,
         loading,
@@ -42,15 +38,6 @@ const PokedexScreen: FC<PokedexScreenProps> = ({ navigation }) => {
     const loadMorePokemon = useCallback(() => {
         hasMore && !loading && setPageNumber(prevPage => prevPage + 1)
     }, [hasMore, loading])
-
-    useEffect(() => {
-        const getFavourites = async () => {
-            const item = await getItem(),
-                favourites: {[key: string]: PokemonCellProp} = item !== null ? JSON.parse(item) : {}
-            setFavourites(favourites)
-        }
-        getFavourites()
-    }, [isFocused])
 
     const onPokemonPress = (pokemon: PokemonCellProp) => navigation.navigate('PokemonDetail', { pokemon })
 
@@ -65,7 +52,7 @@ const PokedexScreen: FC<PokedexScreenProps> = ({ navigation }) => {
         <PokemonCell 
             index={index + 1} 
             pokemon={item}
-            isFavorite={favourites.hasOwnProperty((index + 1).toString())}
+            isFavorite={favourites.find(pokemon => pokemon.id === (index + 1).toString()) && true}
             onPress={onPokemonPress} />)}
         onEndReached={loadMorePokemon}
         ListFooterComponent={
