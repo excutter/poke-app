@@ -17,11 +17,11 @@ import { initFavourites } from './srcs/reducers/favouritesReducer'
 
 const App: FC = () => {
 
-  const { favourites } = useFavourites()
+  const favourites = useFavourites()
 
   useEffect(() => {
     store.dispatch(initFavourites(favourites))
-  }, [])
+  }, [favourites])
 
   return (
     <Provider store={store}>

@@ -6,10 +6,7 @@ import { useAsyncStorage } from '@react-native-async-storage/async-storage'
 
 import { PokemonCellProp as Pokemon } from '../types/PokemonProps'
 
-type UseFavourites = {
-    favourites: Pokemon[],
-    setFavourites: React.Dispatch<React.SetStateAction<Pokemon[]>>
-}
+type UseFavourites = Pokemon[]
 
 const useFavourites = (): UseFavourites => {
 
@@ -26,7 +23,7 @@ const useFavourites = (): UseFavourites => {
         getFavourites()
     }, [])
 
-    return { favourites, setFavourites }
+    return favourites
 }
 
 export default useFavourites

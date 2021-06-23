@@ -53,6 +53,7 @@ const MainStackNavigation: FC<MainStackNavigationProps> = ({ navigation }) => {
             component={PokemonDetailScreen}
             options={({ route }) => ({
                 title: route.params.pokemon.name,
+                headerShown: false,
                 headerStyle: { backgroundColor: 'transparent' },
                 headerRight: () => (
                     <Button

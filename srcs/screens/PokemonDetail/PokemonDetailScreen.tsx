@@ -95,7 +95,7 @@ const PokemonDetail: FC<PokemonDetailScreenProps> = ({
     const onGoBack = () => navigation.goBack()
     const onSegmentedChange = (event: NativeSyntheticEvent<NativeSegmentedControlIOSChangeEvent>) => setSegmentedIndex(event.nativeEvent.selectedSegmentIndex)
 
-    const onFavorite = async () => {
+    const onFavorite = () => {
         setFavorite(prevFav => !prevFav)
         isFavorite ? dispatch(removeFavourite(route.params.pokemon)) : dispatch(addFavourite(route.params.pokemon))
     }
